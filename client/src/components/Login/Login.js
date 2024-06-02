@@ -1,32 +1,34 @@
 import React, { useState } from "react";
-import { auth, signInWithGooglePopup } from "../../firebase";
+import { auth, signInWithGooglePopup } from "../../firebase/firebase";
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import google_logo from '../../google_logo.svg';
-import './Login.css';
+import googleLogo from '../../svg/google_logo.svg';
+import '../../styles/Login.css';
 
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signIn = e => {
+    // Handles email and password sign-in
+    const signIn = async (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                if (user.emailVerified) {
-                    navigate('/Chat')
-                } else {
-                    alert('Please verify your email address.')
-                    sendEmailVerification(user).then(() => {
-                        alert('Verification email sent!')
-                    })
-                }
-            })
-            .catch(error => alert(error.message))
-    }
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            if (user.emailVerified) {
+                navigate('/Chat');
+            } else {
+                alert('Please verify your email address.');
+                await sendEmailVerification(user);
+                alert('Verification email sent!');
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
+    // Handles Google sign-in
     const signInWithGoogle = async () => {
         try {
             await signInWithGooglePopup();
@@ -35,63 +37,63 @@ function Login() {
                 navigate('/Chat');
             } else {
                 alert('Please verify your email address.');
-                sendEmailVerification(user).then(() => {
-                    alert('Verification email sent!');
-                });
+                await sendEmailVerification(user);
+                alert('Verification email sent!');
             }
         } catch (error) {
             console.error('Google sign-in error:', error);
         }
-    }
+    };
 
-    const register = e => {
+    // Handles user registration
+    const register = async (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                sendEmailVerification(user).then(() => {
-                    alert('Verification email sent!')
-                })
-            })
-            .catch(error => alert(error.message))
-    }
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            await sendEmailVerification(user);
+            alert('Verification email sent!');
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     return (
         <div className='login'>
             <Link to='/Chat'>
-                <img className='login__logo' src="https://upload.wikimedia.org/wikipedia/commons/e/ef/ChatGPT-Logo.svg" alt="" />
+                <img className='login-logo' src="https://upload.wikimedia.org/wikipedia/commons/e/ef/ChatGPT-Logo.svg" alt="ChatGPT Logo" />
             </Link>
 
-            <div className="login__container">
+            <div className="login-container">
                 <h1>Welcome</h1>
-                <form action="">
+                <form>
                     <h5>E-mail</h5>
-                    <input type="text"
+                    <input
+                        type="text"
                         value={email}
-                        onChange={e => setEmail(e.target.value)} />
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
                     <h5>Password</h5>
-                    <input type="password"
+                    <input
+                        type="password"
                         value={password}
-                        onChange={e => setPassword(e.target.value)} />
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                    <button className='login__signInButton' type='submit' onClick={signIn}>Sign In</button>
+                    <button className='login-signInButton' type='submit' onClick={signIn}>Sign In</button>
                 </form>
-                <button className='login__registerButton' type='submit' onClick={register}>Create your Account</button>
+                <button className='login-registerButton' type='submit' onClick={register}>Create your Account</button>
                 <hr />
                 <div>
                     <button className="login-google-button" onClick={signInWithGoogle}>
-                        <img src={google_logo} className='icon-google' alt="google-logo"/>
-                        <span className="google_text">
-                            Sign in with google
-                        </span>
+                        <img src={googleLogo} className='icon-google' alt="Google Logo" />
+                        <span className="google_text">Sign in with Google</span>
                     </button>
                 </div>
             </div>
         </div>
-    )
-
+    );
 }
-
 
 export default Login;

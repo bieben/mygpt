@@ -1,11 +1,11 @@
-import './App.css';
 import { useEffect } from 'react';
-import { auth } from './firebase';
+import { auth } from './firebase/firebase';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { useStateValue } from './StateProvider';
+import { useStateValue } from './contexts/StateProvider';
 
 import Login from './components/Login/Login'
 import Chat from './components/Chat/Chat'
+import './styles/App.css';
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         user: authUser ? authUser : null,
       });
     });
-  }, []);
+  });
 
   return (
     <Router>

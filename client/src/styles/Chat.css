@@ -22,6 +22,7 @@
   border-radius: 5px;
   text-align: left;
   transition: ease 0.25s all;
+  cursor: pointer;
 }
 
 .side-menu-button:hover {
@@ -58,17 +59,55 @@
   background-color: #212121;
 }
 
+.chat-input-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .chat-input-textarea {
   background-color: #2f2f2f;
-  width: calc(90% - 250px);
+  width: 80%;
   border-radius: 26px;
   border: none;
   outline: none;
   margin: 12px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
-  padding: 17px;
+  padding: 17px 60px 17px 17px;
   color: white;
+  resize: none;
+  line-height: 1.5;
 }
+
+.textarea-container {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.chat-submit-button {
+  position: absolute;
+  right: 11%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+.chat-submit-button img {
+  width: 20px;
+  height: 20px;
+}
+
 
 .chat-message {
   margin-bottom: 10px;
@@ -141,16 +180,16 @@
   text-align: right;
 }
 
-.header__optionLineOne {
+.header-optionLineOne {
   font-size: 12px;
 }
 
-.header__optionLineTwo {
+.header-optionLineTwo {
   font-size: 15px;
   font-weight: 800;
 }
 
-.header__option {
+.header-option {
   display: flex;
   flex-direction: column;
   margin-left: 10px;
