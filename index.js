@@ -31,7 +31,8 @@ app.post('/', async (req, res) => {
         message: completion.choices[0].message.content
     });
 });
-
+console.log(process.env.PORT);
+console.log(process.env.API_KEY);
 const PORT = process.env.PORT || 3080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
