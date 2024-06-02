@@ -1,0 +1,207 @@
+.App {
+  text-align: center;
+  display: flex;
+  background-color: #282c34;
+  color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.sidemenu {
+  width: 260px;
+  padding: 10px;
+  background-color: #171717;
+}
+
+.side-menu-button {
+  padding: 12px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: left;
+  transition: ease 0.25s all;
+}
+
+.side-menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.side-menu-button span {
+  padding-left: 6px;
+  padding-right: 12px;
+}
+
+.chatbox {
+  flex: 1;
+  background-color: #212121;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  text-align: left;
+  padding: 20px;
+  background-color: #212121;
+}
+
+.chat-input-holder {
+  padding: 12px;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #212121;
+}
+
+.chat-input-textarea {
+  background-color: #2f2f2f;
+  width: calc(90% - 250px);
+  border-radius: 26px;
+  border: none;
+  outline: none;
+  margin: 12px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+  padding: 17px;
+  color: white;
+}
+
+.chat-message {
+  margin-bottom: 10px;
+}
+
+.chat-message.chatgpt {
+  background-color: #212121;
+}
+
+.chat-message-center {
+  display: flex;
+  padding: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #10a37f;
+  border-radius: 50%;
+  border: 1px solid #4a4a4a;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.avatar.chatgpt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #4a4a4a;
+  width: 32px;
+  height: 32px;
+}
+
+.message {
+  background-color: #2f2f2f;
+  border-radius: 1.5rem; 
+  padding: 12px; 
+  font-size: 16px; 
+  color: white; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 600px; 
+  word-wrap: break-word;
+  overflow-wrap: break-word; 
+  line-height: 1.5;
+  margin-left: 12px;
+}
+
+.icon-md {
+  width: 18px;
+  height: 18px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.header {
+  padding: 10px;
+  text-align: right;
+}
+
+.header__optionLineOne {
+  font-size: 12px;
+}
+
+.header__optionLineTwo {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.header__option {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+  background-color: #171717;
+  padding: 12px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: left;
+  transition: ease 0.25s all;
+  color: white;
+}
+
+.conversation-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.conversation-item span {
+  flex-grow: 1;
+  color: white;
+  text-align: left;
+  white-space: nowrap;       
+  overflow: hidden;           
+  text-overflow: ellipsis;     
+}
+
+.conversation-item button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: ease 0.25s all;
+}
+
+.conversation-item span:hover {
+  color: #10a37f;
+}
+
+.conversation-item button:hover {
+  color: #10a37f;
+}

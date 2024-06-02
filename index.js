@@ -8,23 +8,6 @@ const openai = new OpenAI({
     apiKey: apiKey
 });
 
-async function main() {
-    const completion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: "You are a helpful assistant." }],
-        model: "gpt-3.5-turbo",
-    },
-        {
-            proxy: false,
-            httpAgent: new HttpsProxyAgent('http://127.0.0.1:7890'),
-            httpsAgent: new HttpsProxyAgent('http://127.0.0.1:7890')
-        }
-    );
-
-    console.log(completion.choices[0]);
-}
-
-
-// main();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());

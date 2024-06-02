@@ -1,0 +1,135 @@
+.login {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login__logo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    object-fit: contain;
+    width: 100px;
+}
+
+.login__container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.login__container h1 {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.login__container h5 {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.login__container input {
+    height: 40px;
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+.login__container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login__signInButton {
+    background: #10a37f;
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: ease 0.25s all;
+}
+
+.login__signInButton:hover {
+    background: #0e8f6f;
+}
+
+.login-google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    background-color: white;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 14px;
+    color: #757575;
+    transition: background-color 0.3s ease;
+    padding: 0;
+    text-transform: none;
+    font-family: Arial, sans-serif;
+}
+
+.login-google-button:hover {
+    background-color: #f1f1f1;
+}
+
+.icon-google {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.google_text {
+    display: inline-block;
+    line-height: 40px;
+}
+
+
+.login__registerButton {
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    background-color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: ease 0.25s all;
+}
+
+.login__registerButton:hover {
+    background: #f1f1f1;
+}
+
+.login-api {
+    width: 300px !important;
+}
+
+.login-api>div {
+    width: 100% !important;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #c2c8d0;
+    margin: 20px 0;
+    width: 100%;
+}
