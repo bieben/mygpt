@@ -1,5 +1,5 @@
 # My GPT
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
 And it's deployed on Heroku. Just click to see!
 ### [My GPT](https://my-gpt-client-aa4f34b370ff.herokuapp.com/)
 
@@ -86,16 +86,33 @@ This project is a chat application that allows users to sign up and sign in usin
      }
    }
    ```
+5. Since it might take a while to sign up for an account, here I post my apiKey for convenience. Replace this config variable in `/src/firebase/firebase.js`.
+   ```javascript
+   const firebaseConfig = {
+    apiKey: "AIzaSyC4AqQhFknL1_FsrXec8REP1PFei2OToxM",
+    authDomain: "mygpt-9c820.firebaseapp.com",
+    projectId: "mygpt-9c820",
+    storageBucket: "mygpt-9c820.appspot.com",
+    messagingSenderId: "304980670815",
+    appId: "1:304980670815:web:c7b8d0c6269f09fad8deea",
+    measurementId: "G-SM3BW86XLZ"
+   };
+   ```
 
 ### Running the Application
 
 1. **Start the development server:**
+   At the root directory, start the npm to run backend server.
 
    ```bash
    npm start
    ```
-
-2. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+2. Run the client side:
+   ```bash
+   cd client
+   npm start
+   ```
+3. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ### Deployment
 
