@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from "body-parser";
 import cors from "cors";
 
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = process.env.API_KEY;
 
 const openai = new OpenAI({
     apiKey: apiKey

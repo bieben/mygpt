@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import { useStateValue } from '../../contexts/StateProvider';
-import { db } from '../../firebase/firebase';
+import { useNavigate } from 'react-router-dom';
+import { useStateValue } from '../../contexts/context';
+import { db } from '../../firebase/firebaseConfig';
+import AppLogo from '../../svg/openai_logo.svg';
 import { collection, addDoc, serverTimestamp, query, orderBy, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import Header from './Header';
 import ChatMessage from './ChatMessage';
@@ -17,7 +18,11 @@ function Chat() {
     message: "How can I help you today?"
   }]);
   const [currentConversationId, setCurrentConversationId] = useState(null);
+  const [loading, setLoading] = useState(false);
   const textareaRef = useRef(null);
+  const navigate = useNavigate();
+
+
 
   // Clears the chat log and resets the conversation ID
   function clearChat() {
@@ -34,45 +39,55 @@ function Chat() {
     const updatedChatLog = [...chatLog, { user: "me", message: input }];
     setInput("");
     setChatLog(updatedChatLog);
-
-    const messages = updatedChatLog.map((msg) => msg.message).join("\n");
-    const response = await fetch("https://my-gpt-server-8a49a44d5273.herokuapp.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: messages }),
-    });
-    const data = await response.json();
-    const newChatLog = [...updatedChatLog, { user: "gpt", message: data.message }];
-    setChatLog(newChatLog);
-
-    if (user) {
-      if (currentConversationId) {
-        const conversationRef = doc(db, 'users', user.uid, 'conversations', currentConversationId);
-        await updateDoc(conversationRef, {
-          messages: newChatLog,
-          timestamp: serverTimestamp(),
-        });
-      } else {
-        const docRef = await addDoc(collection(db, 'users', user.uid, 'conversations'), {
-          messages: newChatLog,
-          timestamp: serverTimestamp(),
-        });
-        setCurrentConversationId(docRef.id);
-        dispatch({
-          type: 'ADD_CONVERSATION',
-          conversation: {
-            id: docRef.id,
-            messages: newChatLog,
-          },
-        });
-      }
-    }
+    setLoading(true);
 
     // Reset textarea height after submitting
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
+    }
+
+    const messages = updatedChatLog.map((msg) => msg.message).join("\n");
+
+    try {
+      const response = await fetch("https://my-gpt-server-8a49a44d5273.herokuapp.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: messages }),
+      });
+      const data = await response.json();
+      const newChatLog = [...updatedChatLog, { user: "gpt", message: data.message }];
+      setChatLog(newChatLog);
+      setLoading(false);
+
+      if (user) {
+        if (currentConversationId) {
+          const conversationRef = doc(db, 'users', user.uid, 'conversations', currentConversationId);
+          await updateDoc(conversationRef, {
+            messages: newChatLog,
+            timestamp: serverTimestamp(),
+          });
+        } else {
+          const docRef = await addDoc(collection(db, 'users', user.uid, 'conversations'), {
+            messages: newChatLog,
+            timestamp: serverTimestamp(),
+          });
+          setCurrentConversationId(docRef.id);
+          dispatch({
+            type: 'ADD_CONVERSATION',
+            conversation: {
+              id: docRef.id,
+              messages: newChatLog,
+            },
+          });
+        }
+      }
+
+
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
     }
   }
 
@@ -129,6 +144,11 @@ function Chat() {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
+  // Navigate to admin page if have permission
+  const jumpToAdmin = () => {
+    navigate('/admin');
+  }
+
   return (
     <div className="main">
       <aside className="sidemenu">
@@ -138,43 +158,56 @@ function Chat() {
         </div>
         <div className="conversations-list">
           {conversations.map(conversation => (
-            <div key={conversation.id} className="conversation-item">
-              <button onClick={() => handleConversationClick(conversation)}>
+            <div key={conversation.id} className={`conversation-item ${conversation.id === currentConversationId ? 'active' : ''}`}>
+              <button onClick={() => handleConversationClick(conversation)} className='conversation-item-button'>
                 <span className="conversation-item-text">
-                  {truncateText(conversation.messages[1]?.message || conversation.messages[0]?.message, 17)}
+                  {truncateText(conversation.messages[1]?.message || conversation.messages[0]?.message, 14)}
                 </span>
               </button>
               <button onClick={() => handleDeleteConversation(conversation.id)}>Delete</button>
             </div>
           ))}
         </div>
+        <div className="admin-button">
+          <button onClick={jumpToAdmin}>
+            Admin
+          </button>
+        </div>
       </aside>
       <section className="chatbox">
-        <Navbar>
-          <Header />
-        </Navbar>
+        <Header />
         <div className="chat-log">
           {chatLog.map((message, index) => (
             <ChatMessage key={index} message={message} />
           ))}
-        </div>
-        <Navbar>
-          <form onSubmit={handleSubmit} className="chat-input-form">
-            <div className="textarea-container">
-              <textarea
-                ref={textareaRef}
-                value={input}
-                placeholder="Message ChatGPT"
-                onChange={(e) => { setInput(e.target.value); adjustTextareaHeight(); }}
-                className="chat-input-textarea"
-                rows="1"
-              />
-              <button type="submit" className="chat-submit-button">
-                <img src={sendSvg} alt="Send" />
-              </button>
+          {loading && (
+            <div className='chat-message chatgpt'>
+              <div className="chat-message-center">
+                <div className='avatar chatgpt'>
+                  <img className="avatar-img" src={AppLogo} alt="OpenAI Logo" />
+                </div>
+                <div className="message">
+                  Loading...
+                </div>
+              </div>
             </div>
-          </form>
-        </Navbar>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} className="chat-input-form">
+          <div className="textarea-container">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              placeholder="Message ChatGPT"
+              onChange={(e) => { setInput(e.target.value); adjustTextareaHeight(); }}
+              className="chat-input-textarea"
+              rows="1"
+            />
+            <button type="submit" className="chat-submit-button">
+              <img src={sendSvg} alt="Send" />
+            </button>
+          </div>
+        </form>
       </section>
     </div>
   );

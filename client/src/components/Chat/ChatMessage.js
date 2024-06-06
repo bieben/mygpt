@@ -8,9 +8,9 @@ const ChatMessage = ({ message }) => {
             <div className="chat-message-center">
                 <div className={`avatar ${message.user === "gpt" && "chatgpt"}`}>
                     {message.user === "gpt" ? (
-                        <img className="icon-md" src={AppLogo} alt="OpenAI Logo" />
+                        <img className="avatar-img" src={AppLogo} alt="OpenAI Logo" />
                     ) : (
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" className="icon-md" alt="User Logo" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" className="avatar-img" alt="User Logo" />
                     )}
                 </div>
                 <div className="message">

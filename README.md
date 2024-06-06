@@ -61,13 +61,13 @@ This project is a chat application that allows users to sign up and sign in usin
 4. **Create a `.env` file in the root directory and add your Firebase and OpenAI API keys:**
 
    ```plaintext
-   FIREBASE_API_KEY=your_api_key
-   FIREBASE_AUTH_DOMAIN=your_auth_domain
-   FIREBASE_PROJECT_ID=your_project_id
-   FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-   FIREBASE_APP_ID=your_app_id
-   OPENAI_API_KEY=your_openai_api_key
+   REACT_APP_FIREBASE_API_KEY=your_api_key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   REACT_APP_FIREBASE_APP_ID=your_app_id
+   REACT_APP_OPENAI_API_KEY=your_openai_api_key
    ```
 
 ### Firebase Configuration
@@ -79,25 +79,26 @@ This project is a chat application that allows users to sign up and sign in usin
 
    ```plaintext
    service cloud.firestore {
-     match /databases/{database}/documents {
-       match /{document=**} {
-         allow read, write: if request.auth != null;
-       }
-     }
+      match /databases/{database}/documents {
+      // Allow read and write access to all users for their own data
+         match /users/{userId} {
+            allow read: if request.auth != null && request.auth.uid == userId;
+            allow write: if request.auth != null && request.auth.uid == userId;
+
+            // Allow read access to conversations for authenticated users
+            match /conversations/{conversationId} {
+            allow read: if request.auth != null && request.auth.uid == userId;
+            allow write: if request.auth != null && request.auth.uid == userId;
+            }
+         }
+
+         // Allow read access to all users' data for admin users
+         match /{document=**} {
+            allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+         }
+      }
    }
-   ```
-5. Since it might take a while to sign up for an account, here I post my apiKey for convenience. Replace this config variable in `/src/firebase/firebase.js`.
-   ```javascript
-   const firebaseConfig = {
-    apiKey: "AIzaSyC4AqQhFknL1_FsrXec8REP1PFei2OToxM",
-    authDomain: "mygpt-9c820.firebaseapp.com",
-    projectId: "mygpt-9c820",
-    storageBucket: "mygpt-9c820.appspot.com",
-    messagingSenderId: "304980670815",
-    appId: "1:304980670815:web:c7b8d0c6269f09fad8deea",
-    measurementId: "G-SM3BW86XLZ"
-   };
-   ```
+
 
 ### Running the Application
 
@@ -178,13 +179,13 @@ This project is a chat application that allows users to sign up and sign in usin
      Go to the Heroku dashboard, navigate to your application, and set the environment variables under the "Settings" tab. Click "Reveal Config Vars" and add the following:
 
      ```plaintext
-     FIREBASE_API_KEY=your_api_key
-     FIREBASE_AUTH_DOMAIN=your_auth_domain
-     FIREBASE_PROJECT_ID=your_project_id
-     FIREBASE_STORAGE_BUCKET=your_storage_bucket
-     FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-     FIREBASE_APP_ID=your_app_id
-     OPENAI_API_KEY=your_openai_api_key
+     REACT_APP_FIREBASE_API_KEY=your_api_key
+     REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+     REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+     REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+     REACT_APP_FIREBASE_APP_ID=your_app_id
+     REACT_APP_OPENAI_API_KEY=your_openai_api_key
      ```
 
 ## Additional Information
@@ -197,20 +198,16 @@ Ensure you do not expose your API keys and other sensitive information. Use envi
 
 The project follows a standard React structure with components organized under the `src` directory. Key files include:
 
-- `src/firebase/firebase.js`: Firebase configuration and utility functions.
-- `src/components/Login.js`: User authentication component.
-- `src/components/Chat.js`: Chat interface component.
-- `src/contexts/StateProvider.js`: Context API setup for global state management.
+- `src/firebase/firebaseConfig.js`: Firebase configuration and utility functions.
+- `src/components/Login/Login.js`: User authentication component.
+- `src/components/Chat/Chat.js`: Chat interface component.
+- `src/contexts/context.js`: Context API setup for global state management.
 
 ### Troubleshooting
 
 - Ensure all Firebase configurations are correct.
 - Check if the OpenAI API key is valid and has the necessary permissions.
 - Refer to the [Firebase Documentation](https://firebase.google.com/docs) and [OpenAI Documentation](https://beta.openai.com/docs) for more details.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
 

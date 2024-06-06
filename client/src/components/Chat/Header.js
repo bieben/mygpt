@@ -1,5 +1,5 @@
-import { useStateValue } from "../../contexts/StateProvider";
-import { auth } from "../../firebase/firebase";
+import { useStateValue } from "../../contexts/context";
+import { auth } from "../../firebase/firebaseConfig";
 import { Link } from "react-router-dom";
 import '../../styles/Chat.css'
 

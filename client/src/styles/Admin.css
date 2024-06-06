@@ -1,0 +1,45 @@
+.app {
+    background-color: black;
+}
+
+.admin-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #000; /* Set background color to black */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Set text color to white for better contrast */
+    min-height: 100vh; /* Ensure it takes the full height of the viewport */
+}
+
+.admin-title {
+    color: #fff; /* Set heading color to white */
+    margin-bottom: 20px;
+}
+
+.go-to-chat-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #10a37f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.go-to-chat-button:hover {
+    background-color: #0e8f6d;
+}
+
+.loading {
+    font-size: 18px;
+    color: #888;
+}
+
+.error {
+    color: red;
+    font-size: 16px;
+    margin-bottom: 20px;
+}

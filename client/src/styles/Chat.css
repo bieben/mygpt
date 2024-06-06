@@ -14,15 +14,20 @@
   width: 260px;
   padding: 10px;
   background-color: #171717;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 }
 
 .side-menu-button {
   padding: 12px;
-  border: 1px solid white;
+  border: none;
   border-radius: 5px;
   text-align: left;
   transition: ease 0.25s all;
   cursor: pointer;
+  border-bottom: 1px solid #333;
 }
 
 .side-menu-button:hover {
@@ -91,7 +96,6 @@
   right: 11%;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #fff;
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -101,6 +105,12 @@
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+  background-color: rgb(135, 135, 135);
+  transition: ease 0.25s all;
+}
+
+.chat-submit-button:hover {
+  background-color: white;
 }
 
 .chat-submit-button img {
@@ -165,7 +175,7 @@
   margin-left: 12px;
 }
 
-.icon-md {
+.avatar-img {
   width: 18px;
   height: 18px;
 }
@@ -201,6 +211,12 @@ a {
   text-decoration: none;
 }
 
+.conversations-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
 .conversation-item {
   display: flex;
   align-items: center;
@@ -208,15 +224,24 @@ a {
   width: 100%;
   margin-top: 8px;
   background-color: #171717;
-  padding: 12px;
-  border: 1px solid white;
+  padding: 8px;
+  border: 1px solid 171717;
   border-radius: 5px;
   text-align: left;
   transition: ease 0.25s all;
   color: white;
 }
 
+.conversation-item-button {
+  width: 100%;
+  text-align: left;
+}
+
 .conversation-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.conversation-item.active {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -237,10 +262,49 @@ a {
   transition: ease 0.25s all;
 }
 
-.conversation-item span:hover {
+.conversation-item button:hover {
   color: #10a37f;
 }
 
-.conversation-item button:hover {
-  color: #10a37f;
+.admin-button {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.admin-button button{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #10a37f;
+  color: white;
+  cursor: pointer;
+  transition: ease 0.25s all;
+  border-radius: 5px;
+}
+
+.admin-button button:hover {
+  background-color: #0e8f6d;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #252424;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.1);
 }

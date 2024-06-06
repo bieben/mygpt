@@ -16,8 +16,7 @@
     "express": "^4.19.2",
     "https-proxy-agent": "^7.0.4",
     "morgan": "^1.10.0",
-    "openai": "^4.47.2"
+    "openai": "^4.47.3"
   },
-  "devDependencies": {},
   "description": ""
 }
