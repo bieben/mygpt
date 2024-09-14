@@ -69,17 +69,6 @@ This project is a chat application that allows users to sign up and sign in usin
    REACT_APP_FIREBASE_APP_ID=your_app_id
    REACT_APP_OPENAI_API_KEY=your_openai_api_key
    ```
-Note:
-- Since creating an account might take a while, so you can copy and paste this `.env` file content in your `.env`:
-   ```plaintext
-   REACT_APP_FIREBASE_API_KEY="AIzaSyC4AqQhFknL1_FsrXec8REP1PFei2OToxM"
-   REACT_APP_FIREBASE_AUTH_DOMAIN="mygpt-9c820.firebaseapp.com"
-   REACT_APP_FIREBASE_PROJECT_ID="mygpt-9c820"
-   REACT_APP_FIREBASE_STORAGE_BUCKET="mygpt-9c820.appspot.com"
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID="304980670815"
-   REACT_APP_FIREBASE_APP_ID="1:304980670815:web:c7b8d0c6269f09fad8deea"
-   REACT_APP_FIREBASE_MEASUREMENT_ID="G-SM3BW86XLZ"
-   ```
 
 ### Firebase Configuration
 
