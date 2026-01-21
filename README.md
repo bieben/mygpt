@@ -1,7 +1,7 @@
 # My GPT
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
 And it's deployed on Heroku. Just click to see!
-### [My GPT](https://my-gpt-client-aa4f34b370ff.herokuapp.com/)
+### [My GPT](http://47.96.76.43:3000/)
 
 
 
