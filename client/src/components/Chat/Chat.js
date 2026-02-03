@@ -47,9 +47,10 @@ function Chat() {
     }
 
     const messages = updatedChatLog.map((msg) => msg.message).join("\n");
+    const apiBase = (process.env.REACT_APP_API_BASE || "http://localhost:3080").replace(/\/$/, "");
 
     try {
-      const response = await fetch("https://my-gpt-server-8a49a44d5273.herokuapp.com", {
+      const response = await fetch(apiBase, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
